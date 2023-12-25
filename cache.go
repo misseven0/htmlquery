@@ -3,8 +3,8 @@ package htmlquery
 import (
 	"sync"
 
-	"github.com/antchfx/xpath"
 	"github.com/golang/groupcache/lru"
+	"github.com/misseven0/xpath"
 	// lru "github.com/hashicorp/golang-lru/v2"
 )
 

@@ -11,7 +11,7 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/antchfx/xpath"
+	"github.com/misseven0/xpath"
 	"golang.org/x/net/html"
 )
 

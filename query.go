@@ -13,7 +13,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/antchfx/xpath"
+	"github.com/misseven0/xpath"
 	"golang.org/x/net/html"
 	"golang.org/x/net/html/charset"
 )
