@@ -4,8 +4,8 @@ import (
 	"sync"
 
 	"github.com/antchfx/xpath"
-	// "github.com/golang/groupcache/lru"
-	lru "github.com/hashicorp/golang-lru/v2"
+	"github.com/golang/groupcache/lru"
+	// lru "github.com/hashicorp/golang-lru/v2"
 )
 
 // DisableSelectorCache will disable caching for the query selector if value is true.
@@ -17,8 +17,8 @@ var SelectorCacheMaxEntries = 50
 
 var (
 	cacheOnce sync.Once
-	// cache      *lru.Cache
-	cache      *lru.Cache[string, *xpath.Expr]
+	cache     *lru.Cache
+	// cache      *lru.Cache[string, *xpath.Expr]
 	cacheMutex sync.Mutex
 )
 
@@ -27,12 +27,12 @@ func getQuery(expr string) (*xpath.Expr, error) {
 		return xpath.Compile(expr)
 	}
 	cacheOnce.Do(func() {
-		cache, _ = lru.New[string, *xpath.Expr](SelectorCacheMaxEntries)
+		cache = lru.New /* [string, *xpath.Expr] */ (SelectorCacheMaxEntries)
 	})
 	cacheMutex.Lock()
 	defer cacheMutex.Unlock()
 	if v, ok := cache.Get(expr); ok {
-		return v, nil
+		return v.(*xpath.Expr), nil
 	}
 	v, err := xpath.Compile(expr)
 	if err != nil {
